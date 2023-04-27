@@ -3,6 +3,5 @@ numpy
 pandas
 librosa
 joblib
-matplotlib
 plotly
 math
