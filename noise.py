@@ -114,7 +114,7 @@ if st.button("Diagnosis") and uploaded_file and option_3:
     combined_df['result'] = model.predict(combined_df[['mean_peak','max_peak','top5_mean_peak']])
 
     # 결과 출력
-    st.write(combined_df[['component', 'cmp_description', 'result']])
+    st.write(combined_df[['component', 'cmp_description','frequency','mean_peak','max_peak','top5_mean_peak', 'result']])
 
     # 그래프 출력
     fig = go.Figure()
