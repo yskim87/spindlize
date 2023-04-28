@@ -108,8 +108,7 @@ if st.button("Diagnosis") and uploaded_file and option_3:
 
     #스케일링
     scaler = joblib.load('scaler.pkl')
-#     combined_df[['mean_peak','max_peak','top5_mean_peak']] = scaler.transform(combined_df[['mean_peak','max_peak','top5_mean_peak']])
-    combined_df[['mean_peak','max_peak','top5_mean_peak']] = scaler.transform(combined_df[['mean_peak','max_peak','top5_mean_peak']].values)
+    combined_df[['mean_peak','max_peak','top5_mean_peak']] = scaler.transform(combined_df[['mean_peak','max_peak','top5_mean_peak']])
 
     #예측(판정)
     combined_df['result'] = model.predict(combined_df[['mean_peak','max_peak','top5_mean_peak']])
