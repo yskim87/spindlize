@@ -125,3 +125,4 @@ if st.button("Diagnosis") and uploaded_file and option_3:
     fig.update_xaxes(range=[0, sr/2])
     fig.update_yaxes(range=[0, max(yf_abs)*1.1])
     st.plotly_chart(fig)
+    st.write(combined_df)
