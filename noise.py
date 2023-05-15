@@ -74,34 +74,34 @@ if st.button("Diagnosis") and uploaded_file and option_3:
     # 절댓값으로 변환하여 그래프 데이터 생성
     yf_abs = np.abs(yf[:N//2])
     
-    # 조화(배수) 성분들의 peak 값 추출, 데이터 프레임에 추가
-    freqs = combined_df['frequency'].values
-    peaks_df = pd.DataFrame(columns=['mean_peak', 'max_peak', 'top5_mean_peak'])
+#     # 조화(배수) 성분들의 peak 값 추출, 데이터 프레임에 추가
+#     freqs = combined_df['frequency'].values
+#     peaks_df = pd.DataFrame(columns=['mean_peak', 'max_peak', 'top5_mean_peak'])
 
-    for freq in freqs:
-        harmonic_freqs = [freq * i for i in range(1, 10)]
-        freq_resol_ratio = 0.01 # 주파수 정확도 1% 설정, 이거때문에 오류날 수 있으니 참고
-        peaks = []
+#     for freq in freqs:
+#         harmonic_freqs = [freq * i for i in range(1, 10)]
+#         freq_resol_ratio = 0.01 # 주파수 정확도 1% 설정, 이거때문에 오류날 수 있으니 참고
+#         peaks = []
 
-        for f in harmonic_freqs:
-            freq_range = (f - (freq_resol_ratio/2)*f, f + (freq_resol_ratio/2)*f) ## 주파수 범위 1%로 설정
-            idx_range = np.where(np.logical_and(xf >= freq_range[0], xf <= freq_range[1]))
-            if idx_range[0].size == 0:
-                max_idx = None
-                peak_val = 0
-            else:
-                max_idx = np.argmax(np.abs(yf[idx_range]))
-                peak_freq = xf[idx_range][max_idx]
-                peak_val = np.abs(yf[idx_range][max_idx])
-            peaks.append([peak_freq, peak_val/rms])
-        np_peaks = np.array(peaks)
-        mean_peak = np.mean(np_peaks[:, 1], axis=0)
-        max_peak = np.max(np_peaks[:, 1], axis=0)
-        top5_mean_peak = np.mean(np.sort(np_peaks[:, 1])[-5:], axis=0)
+#         for f in harmonic_freqs:
+#             freq_range = (f - (freq_resol_ratio/2)*f, f + (freq_resol_ratio/2)*f) ## 주파수 범위 1%로 설정
+#             idx_range = np.where(np.logical_and(xf >= freq_range[0], xf <= freq_range[1]))
+#             if idx_range[0].size == 0:
+#                 max_idx = None
+#                 peak_val = 0
+#             else:
+#                 max_idx = np.argmax(np.abs(yf[idx_range]))
+#                 peak_freq = xf[idx_range][max_idx]
+#                 peak_val = np.abs(yf[idx_range][max_idx])
+#             peaks.append([peak_freq, peak_val/rms])
+#         np_peaks = np.array(peaks)
+#         mean_peak = np.mean(np_peaks[:, 1], axis=0)
+#         max_peak = np.max(np_peaks[:, 1], axis=0)
+#         top5_mean_peak = np.mean(np.sort(np_peaks[:, 1])[-5:], axis=0)
 
-        peaks_df.loc[len(peaks_df)] = [mean_peak, max_peak, top5_mean_peak]
+#         peaks_df.loc[len(peaks_df)] = [mean_peak, max_peak, top5_mean_peak]
 
-    combined_df = pd.concat([combined_df, peaks_df], axis=1)
+#     combined_df = pd.concat([combined_df, peaks_df], axis=1)
 
 #     # 모델 불러오기
 #     model = joblib.load('model.joblib')
@@ -125,3 +125,4 @@ if st.button("Diagnosis") and uploaded_file and option_3:
     fig.update_xaxes(range=[0, sr/2])
     fig.update_yaxes(range=[0, max(yf_abs)*1.1])
     st.plotly_chart(fig)
+    st.write('베어링 외륜 결함이 검출되었습니다(2단계')
